@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,600|Passion+One" rel="stylesheet">
+	<link rel="stylesheet" href="css/estilos.css">
+	<title>Marvel Comic</title>
+</head>
+<body>
+	<header>
+		<div class="contenedor">
+			<nav class="menu">
+				<a class="page" href="index.html" id="btn-acerca-de">Inicio</a>
+				<a class="page" href="busqueda.html" id="btn-busqueda">Busqueda</a>
+				<a class="page" href="nosotros.html" id="btn-nosotros">Nosotros</a>
+			</nav>
+			<div class="textos">
+				<h1 class="nombre"><span>Marvel</span> Comics</h1>
+				<h3>Todo sobre marvel Comics</h3>
+			</div>
+		</div>
+	</header>
+	 <div class="main contenedor">
+	 	<div class="buscador">
+	 		<div class="box">
+	 			<form action="" method="get" accept-charset="utf-8">
+	 				<input type="text" placeholder="Ingrese aquí">
+		 			<button class="buscar">Buscar</button>
+					<button id="modalBoton">Filtros</button>
+	 			</form>
+	 		</div>
+	 		<div id="modal" class="modal">
+			  <div class="modal-content">
+			    <div class="modal-header">
+			      <span class="close">&times;</span>
+			      <h2>Buscador</h2>
+			    </div>
+			    <div class="modal-body">
+			      <form >
+			      	<input type="text" name="titulo" placeholder="Titulo" id="titulo" value="">
+					<select class="parameter" name="format" id="format">
+					     <option selected="" value=""></option>
+					     <option value="comic">comic</option>
+					     <option value="magazine">magazine</option>
+					     <option value="trade%20paperback">trade paperback</option>
+					     <option value="hardcover">hardcover</option>
+					     <option value="digest">digest</option>
+					     <option value="graphic%20novel">graphic novel</option>
+					     <option value="digital%20comic">digital comic</option>
+					  	 <option value="infinite%20comic">infinite comic</option>
+				  	</select>
+					<input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+
+			      </form>
+			    </div>
+			    <div class="modal-footer">
+			      <h3><button class="buscar">Buscar</button></h3>
+			    </div>
+			  </div>
+			</div>
+	 	</div>
+	 	<div id="resultados"></div>
+	 </div>
+	<footer>
+		<div class="contenedor">
+			<div class="copyright">
+				<p>Copyright MatiasBenary 2018</p>
+			</div>
+		</div>
+	</footer>
+	<script src="js/jquery.js"></script>
+	<script src="js/general.js"></script>
+	<script >
+
+	$(document).ready(function() {
+			$(".buscar").click(function(event) {
+		event.preventDefault();
+		$("#modal").css("display", "none");
+		buscar(1);
+	});
+
+
+	$("#resultados").on('click', '#paginaActual', function(event) {
+		event.preventDefault();
+		alert("vamos");
+	});
+			
+	$("#resultados").on('click', '.paginasSiguientes', function(event) {
+		event.preventDefault();
+		var offset = $(this).attr('href');
+		buscar(offset);
+	});
+	
+	function buscar(offset){
+		
+		var key = 'ts=1&apikey=4cc4ad6ac17b1e0d8cf0b785d1367511&hash=0425c79019517b0f72a911ff47a5bd12';
+		var limitOffset = '&limit=10&offset='+(offset-1)*10;
+
+		var format = ($('#format').val()) ? "&format="+$('#format').val(): "";
+		var titulo = ($('#titulo').val()) ? "&titleStartsWith="+$('#titulo').val(): "";
+
+		var url = "https://gateway.marvel.com/v1/public/comics?"+key+limitOffset+format+titulo;
+		$("#resultados").html("buscando ...");
+
+		$.get(url,function(data){
+			var	cardsHtml ="";
+			for(var x=0; x<data.data.results.length; x++){
+				comic=data.data.results[x];
+				card = {}
+				card.id = comic['id'];
+				card.title = comic['title'];
+				card.description = comic['description']?comic['description']: "No posee";
+				card.img = (comic.thumbnail.path + "." + comic.thumbnail.extension);
+
+				cardsHtml = cardsHtml+
+				'<div class="card">'+
+				  '<img src="'+ card.img +'" alt="Avatar" style="width:100%">'+
+				  '<div class="container">'+
+				    '<h4><b><a id="irComic" href="detalles.html?id='+card.id+'">'+card.title+'</a></b></h4>'+
+				    '<p>'+card.description+'</p>'+
+				  '</div>'+
+				'</div>';
+			}
+			if( data.data ){
+
+				var paginasTotales = data.data.total/10 + 1 ;
+				var paginaActual = offset ;
+				var limit = (paginasTotales< 5)?paginasTotales:5;
+				var aux='';
+
+				if(offset > 1){
+					valor = parseInt(offset);
+					aux = '<li><a href="'+(valor-1)+'" class="paginasSiguientes">'+(valor-1)+'</a></li>';
+					limit = limit-1;
+				}
+
+				var aux= aux + '<li><a id="paginaActual" href="'+offset+'" class="active">'+offset+'</a></li>';
+
+				for(var x=1; x<= limit-1; x++){
+					valor = x+parseInt(offset);
+					aux= aux+'<li><a href="'+valor+'" class="paginasSiguientes">'+valor+'</a></li>'
+				}
+				cardsHtml = cardsHtml+
+				'<section class="paginacion">'+
+					'<ul>'+
+						aux					
+					'</ul>'+
+				'</section>';
+				$("#resultados").html(cardsHtml);
+			}
+		}).fail(function() {
+		    alert( "error" );
+		});
+	}
+
+	//Control Menu
+	$("#modalBoton").click(function(event) {
+		event.preventDefault();
+		$("#modal").css("display", "block");
+	}); 
+
+	$(".close").click(function(event) {
+		$("#modal").css("display", "none");
+	}); 
+
+	window.onclick = function(event) {
+	    if (event.target == modal) {
+	        $("#modal").css("display", "none");
+	    }
+	}
+
+	});
+	
+	</script>
+
+</body>
+</html>
