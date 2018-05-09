@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,600|Passion+One" rel="stylesheet">
+	<link rel="stylesheet" href="css/estilos.css">
+	<title>Marvel Comic</title>
+</head>
+<body>
+	<header>
+		<div class="contenedor">
+			<nav class="menu">
+				<a class="page" href="index.html" id="btn-acerca-de">Inicio</a>
+				<a class="page" href="busqueda.html" id="btn-busqueda">Busqueda</a>
+				<a class="page" href="nosotros.html" id="btn-nosotros">Nosotros</a>
+			</nav>
+			<div class="textos">
+				<h1 class="nombre"><span>Marvel</span> Comics</h1>
+				<h3>Todo sobre marvel Comics</h3>
+			</div>
+		</div>
+	</header>
+	 <div class="main">
+	 	<section>
+	 		<div class="contenedor">
+		 		<div class="index">
+		 			<h2>Nosotros:</h2>
+		 			<p>Somos un grupo programadomadores que desarrollan apliaciones web</p>
+		 			<h3>Ubicación:</h3>
+		 			<div id="map"></div>
+		 		</div>
+	 		</div>
+	 	</section>
+	 </div>
+	<footer>
+		<div class="contenedor">
+			<div class="copyright">
+				<p>Copyright MatiasBenary 2018</p>
+			</div>
+		</div>
+	</footer>
+	<script src="js/jquery.js"></script>
+	<script src="js/general.js"></script>
+	<script>
+      var map;
+
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.9228288, lng: -57.9584442},
+          zoom: 9
+        });
+
+        var myLatLng = new google.maps.LatLng(-34.922770, -57.956189);
+        
+        var marker1 = new google.maps.Marker({
+			position: myLatLng,
+			map: map,
+			title: "catedral",
+		});
+
+		var infowindow1 = new google.maps.InfoWindow({
+			content: "Oficina Central"
+		});
+
+		google.maps.event.addListener(marker1, 'click', function() {
+			infowindow1.open(map, marker1);
+		});
+
+        var infoWindow = new google.maps.InfoWindow({map: map});
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent("Usted esta aquì");
+          });
+      }
+  }
+    
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJT_HgVMujy027P5odAFzJ8ueCrTknwP0&callback=initMap"
+    async defer>
+    	
+    </script>
+	
+
+
+</body>
+</html>
