@@ -39,7 +39,7 @@ header .menu {
 
 header .menu a {
 	color: #fff;
-	font-size: 20px;
+	font-size: 15px;
 	font-weight: 300;
 	display:  inline-block;
 	margin: 20px 6px;
@@ -99,6 +99,7 @@ footer .copyright {
     margin: 15px 10px 5px 0px; 
     padding-bottom: 15px;
     background: white;
+    border-radius: 5px;
 }
 
 .buscador {
@@ -109,16 +110,15 @@ footer .copyright {
     border-bottom: solid white 2px;
 }
 
-.buscador input,
-.buscador input:focus {
+.buscador .buscadorTitulo ,
+.buscador .buscadorTitulo:focus {
 	border: 0;
 	background-color:transparent;
 	color: white;
 	font-family: "TradeGothicBold";
-	border: solid 1px #a9a9a9
     font-size: 12px;
     text-transform: uppercase;
-   	width: 65%;
+   	width: 85%;
     margin-bottom: 6px;
 }
 
@@ -186,19 +186,38 @@ footer .copyright {
 
 .modal-body {
 	padding: 2px 16px;
-	color: green;
-    background-color: #ac1818;
+	color: black;
+    background-color: white;
+    border: none;
 }
+
+.modal-body input,
+.modal-body input:focus  {
+    border: 0;
+    background-color:transparent;
+    text-transform: uppercase;
+    margin: 5px 0;
+    font-size   : 100%;
+    color: black;
+}
+
 
 .modal-footer {
     padding: 2px 16px;
     background-color: #ac1818;
     color: white;
+    overflow: hidden;
+    width: 100%;
+}
+
+.modal-footer h3{
+    float: right;
 }
 
 /*************** CARDS **********************/
 
 .card {
+    border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     width: 100%;
@@ -255,16 +274,16 @@ footer .copyright {
     display:block;
     padding:10px 20px;
     color:#fff;
-    background:#024959;
+    background:#8E0B0B;
     text-decoration: none;
 }
 
 .paginacion ul li a:hover {
-    background:#037E8C;
+    background:#C11D1D;
 }
 
 .paginacion ul li .active {
-    background:#037E8C;
+    background:#ac1818;
     font-weight:bold;
 }
 
@@ -273,6 +292,7 @@ footer .copyright {
 
 
 .card2 {
+    border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     width: 100%;
@@ -342,4 +362,27 @@ footer .copyright {
 #map {
         height: 400px;
         width: 100%;
+}
+
+.historial{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 60%;
+    padding: 5px;
+    margin: 15px 10px 5px 0px; 
+    padding: 5px;
+    background:#ac1818;
+    border-radius: 5px;
+}
+
+#borrar{
+    font-family: "Open Sans";
+    font-size:  16px;
+    text-transform: uppercase;
+    text-align: center; 
+    font-weight: 300
+}
+
+#buscar{
+    color: black;
 }

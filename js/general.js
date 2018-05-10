@@ -1,17 +1,17 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
-	// Efecto menu
-	$('.page').each(function(index,elemento){
-		$(this).css({
-			'top': '-200px'
-		});
+    // Efecto menu
+    $('.page').each(function (index, elemento) {
+        $(this).css({
+            'top': '-200px'
+        });
 
-		$(this).animate({
-			top: '0'
-		},500+(index*250));
-	});
+        $(this).animate({
+            top: '0'
+        }, 500 + (index * 250));
+    });
 
-	//Manejo Api
+    //Manejo Api
 
 
 });
