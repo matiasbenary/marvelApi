@@ -3,7 +3,7 @@ $(document).ready(function () {
     cargarStorage();
     $('#borrar').click(function (event) {
         event.preventDefault();
-        c = confirm("esta seguro que desea borrar el historial")
+        c = confirm("Esta seguro que desea borrar el historial")
         if (c) {
             listaIds = JSON.parse(localStorage.getItem('ids'));
 
@@ -13,7 +13,7 @@ $(document).ready(function () {
 
             localStorage.removeItem('ids')
         }
-
+        cargarStorage();
     });
 
 
