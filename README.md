@@ -4,4 +4,4 @@ Es una aplicacion web que consume de la api de marvel.Esta pensada para ser vist
 https://matiasbenary.github.io/marvelApi/index.html
 
 
-[Marvel](https://matiasbenary.github.io/marvelApi/index.html)
+[Marvel](https://chiararv.github.io/ada-javascript/javascript/Ejercicios/13_fetch/BreakingBad/index.html)
